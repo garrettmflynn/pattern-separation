@@ -10,7 +10,7 @@ In the human brain, the hippocampus is theorized to transform non-simultaneous i
 
 * [Installation](#INSTALLATION)
 * [Usage](#USAGE)
-* [Dependencies](#DEPENDENCIES)
+* [Examples](#EXAMPLES)
 * [Support](#SUPPORT)
 * [Acknowledgements](#ACKNOWLEDGEMENTS)
 
@@ -59,14 +59,15 @@ with
 id.episode(shader='separation', control_method='Remote_Gesture)
 ```
 
-## PATTERN-SEPARATION AS INTERACTIVE ARTWORK
+## EXAMPLES
 
-### Process
+### **pattern-separation** as Interactive Art
+#### Process
 Outside                         |  Inside
 :------------------------------:|:------------------------------:
 ![](images/form_1_outside.jpg)  |  ![](images/form_1_inside.jpg)
 
-### Documentation Video
+#### Documentation Video
 *Coming soon*
 
 ## DEPENDENCIES

@@ -231,6 +231,11 @@ class SourceObj(VisbrainObject):
         self._sources.update()
         self._sources_text.update()
 
+    def _shift_radius(self,inc=1):
+        self._radius_min += inc
+        self._radius_max += inc
+
+    
     def _update_radius(self,timepoint=None):
         """Update marker's radius."""
         logger.debug("Weird edge arround markers (source_obj.py)")

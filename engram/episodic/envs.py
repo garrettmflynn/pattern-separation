@@ -87,7 +87,7 @@ def separation(id,control_method):
     # Convert binary array into visualizable continuous values
     print('Calculating spike durations')
     TRAIL = 10
-    TIMEPOINTS = 100000
+    TIMEPOINTS = 10000
     spikes = binary.data.T[0:TIMEPOINTS]
     one_array = np.where(spikes == 1)
     if not not one_array:
@@ -140,7 +140,7 @@ def separation(id,control_method):
     # r_obj.select_roi(select=[idx_rh, idx_lh], unique_color=False, smooth=7, translucent=True)
 
     vb = Engram(source_obj=s_obj,roi_obj=r_obj,connect_obj=c_obj,metadata=metadata,\
-                rotation=0.05,carousel_metadata=intersection_matrices,\
+                rotation=0.25,carousel_metadata=intersection_matrices,\
                     carousel_display_method='text',control_method=control_method)
     vb.engram_control(template='B1',alpha=.02)
     vb.engram_control(visible=False)

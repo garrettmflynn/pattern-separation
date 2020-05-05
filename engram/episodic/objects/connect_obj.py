@@ -182,6 +182,11 @@ class ConnectObj(VisbrainObject):
     def update(self):
         """Update the line."""
         self._connect.update()
+    
+    def _shift_linewidth(self,inc):
+        """Update the line."""
+        self.line_width += inc
+        self.update()
 
     def _update_target_position(self,nodes=None):
 

@@ -9,6 +9,7 @@ BrainUserMethods: initialize functions for user interaction.
 import logging
 import itertools
 import serial 
+import sys
 import time
 
 import vispy.scene.cameras as viscam
@@ -220,25 +221,31 @@ class Engram(_PyQtModule, UiInit, UiElements, Visuals, EngramCbar,
         else:
             self.ser = None
 
+
+        self.prev_rotation = 0
+
         def arduino_control(method='none'):
             if self.ser is not None:
                 # Check Arduino inputs
-                b = self.ser.readline()         # read a byte string
-                string_n = b.decode()  # decode byte string into Unicode  
-                message = string_n.rstrip() # remove \n and \r
+                try:
+                    b = self.ser.readline()         # read a byte string
+                    string_n = b.decode()  # decode byte string into Unicode  
+                    message = string_n.rstrip() # remove \n and \r
+                    messages = message.split('|')
+                    distance = messages[0]
+                    command = messages[1]
+                except:
+                    distance = 500
+                    command = 'NONE'
 
-            if method is 'distance':
+
+            if method != 'none':
                 THRESHOLD = 20 # cm
                 HEIGHT = 100
-                flt = float(message)
+                flt = float(distance)
                 self._userdistance = np.append(self._userdistance,flt) # convert string to float
-                # _measured_velocity = (self._userdistance[-1] - self._userdistance[-2])/args[0].elapsed
-                
-                # if _measured_velocity < .2 or _measured_velocity > -.2:
-                #     self._uservelocity = (self._userdistance[-1] - self._userdistance[-2])/args[0].elapsed # in cm/s
-                # else:
-                #     self._uservelocity = np.sign(_measured_velocity)*THRESHOLD
-                
+
+                # Distance Selections
                 if flt < HEIGHT+THRESHOLD:
                     self._carousel_choice[0] = 0
                 if flt >= HEIGHT + (THRESHOLD) and flt < HEIGHT+(2*THRESHOLD):
@@ -246,54 +253,116 @@ class Engram(_PyQtModule, UiInit, UiElements, Visuals, EngramCbar,
                 if flt >= HEIGHT + (2*THRESHOLD):
                     self._carousel_choice[0] = 3
 
-                print(flt)
-                print(self._carousel_choice[0])
+                # Remote Option
+                if command == 'POWER':
+                    sys.exit()
 
+                if command == 'FUNC/STOP':
+                    if self._carousel_choice[1] < (len(self._carousel_options_inds[self._carousel_choice[0]])-1):
+                        self._carousel_choice[1] += 1
+                    else:
+                        self._carousel_choice[1] = 0
+                
+                if command == 'VOL+' or command == 'VOL-':
+                    if command == 'VOL+':
+                        self.view.wc.camera.distance -= 5000
+                    else: 
+                        self.view.wc.camera.distance += 5000
 
-                # if self._uservelocity > THRESHOLD:
-                #     if self._carousel_choice[0] < (len(self._carousel_options_inds)-1):
-                #         self._carousel_choice[0] += 1
-                #         print(self._uservelocity)
-                #         print(self._carousel_choice[0])
-                # if self._uservelocity < -THRESHOLD:
-                #     if self._carousel_choice[0] > 0:
-                #         self._carousel_choice[0] -= 1
-                #         print(self._uservelocity)
-                #         print(self._carousel_choice[0])
-                # print(self._uservelocity)
-            
-            elif method is 'remote':
-                if message != '':
-                    print(message)
+                if command == 'UP':
+                    self.rotation += .25
 
-                if message is 'UP':
-                    self.rotation += 1
-                elif message is 'DOWN':
-                    self.rotation -= 1
-                elif message is 'FAST BACK':
-                    if self.timescaling > 0.2:
-                        self.timescaling -= 0.1
-                elif message is 'FAST FORWARD':
-                    self.timescaling += 0.1
-                elif message is 'PAUSE':
-                    print('PAUSE')
-                elif message is '0':
-                    self.view.wc.camera.azimuth = 90 
-                    self.view.wc.camera.elevation = 0
-                elif message is '1':
+                elif command == 'DOWN':
+                    self.rotation -= .25
+
+                elif command == 'FAST BACK':
+                    if np.sign(self.timescaling) == 1:
+                        self.timescaling = -0.1
+                    else:
+                        self.timescaling -= 0.10
+
+                elif command == 'FAST FORWARD':
+                    if np.sign(self.timescaling) == -1:
+                        self.timescaling = 0.1
+                    else:
+                        self.timescaling += 0.10
+
+                elif command == 'PAUSE':
+                    if self.timescaling == 0:
+                        print('PLAY')
+                        self.timescaling = self.default_timescaling
+                        self.rotation = self.prev_rotation
+                        self.displayed_time = self.time_cache
+                        self.time_cache = None
+
+                    else:
+                        print('PAUSE')
+                        self.prev_rotation = self.rotation
+                        self.time_cache = self.displayed_time
+                        self.rotation = 0
+                        self.timescaling = 0
+
+                # Remote Numbers
+                elif command == '0':
                     self.view.wc.camera.azimuth = 0 
                     self.view.wc.camera.elevation = 90
+
+                elif command == '1':
+                    self.view.wc.camera.azimuth = 0
+                    self.view.wc.camera.elevation = -90
+
+                elif command == '2':
+                    self.view.wc.camera.azimuth = 90 
+                    self.view.wc.camera.elevation = 0
+
+                elif command == '3':
+                    self.view.wc.camera.azimuth = -90 
+                    self.view.wc.camera.elevation = 0
+
+                elif command == '4':
+                    self.view.wc.camera.azimuth = 0 
+                    self.view.wc.camera.elevation = 0
+
+                elif command == '5':
+                    self.view.wc.camera.azimuth = 180 
+                    self.view.wc.camera.elevation = 0
+
+                elif command == '6':
+                    self.view.wc.camera.azimuth = 45 
+                    self.view.wc.camera.elevation = 30
+
+                elif command == '7':
+                    self.view.wc.camera.azimuth = 45 
+                    self.view.wc.camera.elevation = -30
+
+                elif command == '8':
+                    self.view.wc.camera.azimuth = -45 
+                    self.view.wc.camera.elevation = 30
+
+                elif command == '9':
+                    self.view.wc.camera.azimuth = -45 
+                    self.view.wc.camera.elevation = -30
 
         
         # ====================== Timer Creation ======================
 
+        self.loop_shift = 0
+        self.start_offset = 0
+        self.default_timescaling = 1/4
+        self.timescaling = self.default_timescaling
+        self.time_cache = None
+        self.displayed_time = 0
+
         def on_timer(*args, **kwargs): 
 
             # Change Source Radii and Connectivity Values
-            self.timescaling = 1/4
-            LOOP_SHIFT = 0
-            t = LOOP_SHIFT + (LOOP_SHIFT+(args[0].elapsed*self.timescaling))%((np.shape(self.sources[0].data)[1]/self.metadata['fs'])-LOOP_SHIFT)
-            timepoint = int(t*self.metadata['fs'])
+            if self.time_cache is None:
+                time_inc = (args[0].dt*self.timescaling)
+                self.displayed_time = self.loop_shift+(self.displayed_time + time_inc)%((np.shape(self.sources[0].data)[1]/self.metadata['fs'])-self.loop_shift)
+            else:
+                self.displayed_time = self.time_cache
+            
+            timepoint = int(self.displayed_time*self.metadata['fs'])
             for source in self.sources:
                 source._update_radius(timepoint=timepoint)
             for connect in self.connect:
@@ -310,7 +379,7 @@ class Engram(_PyQtModule, UiInit, UiElements, Visuals, EngramCbar,
                 self._userdistance = [-1]
 
             # Update Time Display
-            t_str = str(round(t, 3)) + ' s'
+            t_str = str(round(self.displayed_time, 3)) + ' s'
             if not hasattr(self, '_time'):
                 self._time = Text(t_str, parent=self.view.canvas.scene, color='white')
             else:

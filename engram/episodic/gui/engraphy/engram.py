@@ -239,7 +239,7 @@ class Engram(_PyQtModule, UiInit, UiElements, Visuals, EngramCbar,
                     command = 'NONE'
 
 
-            if method != 'none':
+            if method != 'keyboard':
                 THRESHOLD = 20 # cm
                 HEIGHT = 100
                 flt = float(distance)

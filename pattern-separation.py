@@ -77,4 +77,4 @@ else:
 
 id.standardize(form='stft')
 id.extractTrials()
-id.episode(shader='separation', control_method='distance')
+id.episode(shader='separation', control_method='keyboard')

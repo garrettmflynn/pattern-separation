@@ -26,12 +26,11 @@ In **pattern-separation**, we created a custom version of Visbrain to visualize 
 If you are having issues, please email me at garrett@garrettflynn.com
 
 
-## Bonus Material
-### Process
-#### Distance Sensor Prototype
+## A Closer Look at Hardware
+### Distance Sensor Prototype
 ![distance sensor breadboard](images/distance_sensor_breadboard.jpg)
 
-#### Integrated IR-Distance | Form #1
+### Enclosed IR-Distance Sensor System
 Outside                         |  Inside
 :------------------------------:|:------------------------------:
 ![](images/form_1_outside.jpg)  |  ![](images/form_1_inside.jpg)

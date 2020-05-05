@@ -1,21 +1,20 @@
 # pattern-separation
- A gesture-controlled interface for visualizing hippocampal dynamics
+ A custom Visbrain environment for sorting neuronal spike trains 
 
 In the human brain, the hippocampus is theorized to transform non-simultaneous input patterns into less similar output patterns in a process known as "pattern separation", allowing us to distinguish similar memories from one another.
 
-In **pattern-separation**, we created a custom version of Visbrain to visualize the dynamic activity of the hippocampus during a delayed match-to-sample memory task. Additionally, an Arduino distance sensor was used as a gesture-controlled interface to increase/decrease the amount of "pattern separation" within the Visbrain window.
+**pattern-separation** sorts neuronal spike trains across all combinations of user-specified properties (e.g. left/right, anterior/posterior, CA1/CA3, etc). Additionally, Arduino ultrasonic and IR sensors were used to enable control of the system without access to the keyboard—-as well as allow user gestures to increase/decrease the amount of "pattern separation" within the custom Visbrain environment.
 
 [![Github badge](https://img.shields.io/badge/github-source_code-blue.svg?logo=github&logoColor=white)](https://github.com/garrettmflynn/pattern-separation)
 [![License badge](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 
-* [Installation](#Installation)
-* [Usage](#Usage)
-* [Interaction](#Installation)
+* [Installation](#INSTALLATION)
+* [Usage](#USAGE)
 * [Dependencies](#DEPENDENCIES)
 * [Support](#SUPPORT)
 * [Acknowledgements](#ACKNOWLEDGEMENTS)
 
-## Installation
+## INSTALLATION
 ### Code
 1. Clone or download the [pattern-separation](https://github.com/garrettmflynn/pattern-separation) repository
 
@@ -26,19 +25,8 @@ In **pattern-separation**, we created a custom version of Visbrain to visualize 
 ```bash
 $ conda env create -f environment.yml
 ```
-### Hardware
-![tinkercad circuit](images/tinkercad.png)
 
-### Example System
-#### Breadboard Test
-![distance sensor breadboard](images/distance_sensor_breadboard.jpg)
-
-#### Final Enclosure
-Outside                         |  Inside
-:------------------------------:|:------------------------------:
-![](images/form_1_outside.jpg)  |  ![](images/form_1_inside.jpg)
-
-## Usage
+## USAGE
 Default Settings upon Installation:
 * Synthetic Data
 * Keyboard Control
@@ -57,6 +45,11 @@ $ python pattern-separation.py
 ```
 
 ### Enable **Remote + Gesture Control**
+
+#### Wire Up Your Arduino
+![tinkercad circuit](images/tinkercad.png)
+
+#### Update the Control Method
 On line 80, replace 
 ```python
 id.episode(shader='separation', control_method='keyboard')
@@ -65,6 +58,16 @@ with
 ```python
 id.episode(shader='separation', control_method='Remote_Gesture)
 ```
+
+## PATTERN-SEPARATION AS INTERACTIVE ARTWORK
+
+### Process
+Outside                         |  Inside
+:------------------------------:|:------------------------------:
+![](images/form_1_outside.jpg)  |  ![](images/form_1_inside.jpg)
+
+### Documentation Video
+*Coming soon*
 
 ## DEPENDENCIES
 This project uses the following libraries:

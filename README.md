@@ -29,10 +29,9 @@ If you are having issues, please email me at garrett@garrettflynn.com
 ## Bonus Material
 ### Process
 #### Distance Sensor Prototype
-![distance sensor breadboard](images/distance_sensor_breadboard.HEIC)
+![distance sensor breadboard](images/distance_sensor_breadboard.jpg)
 
 #### Integrated IR-Distance | Form #1
-
-![form 1 | outside](images/form_1_outside.jpg)
-
-![form 1 | inside](images/form_1_inside.jpg)
+Outside                         |  Inside
+:------------------------------:|:------------------------------:
+![](images/form_1_outside.jpg)  |  ![](images/form_1_inside.jpg)

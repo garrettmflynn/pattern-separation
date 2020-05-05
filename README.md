@@ -61,7 +61,7 @@ id.episode(shader='separation', control_method='Remote_Gesture)
 
 ## EXAMPLES
 
-### **pattern-separation** as Interactive Art
+### Using **pattern-separation** for Interactive Art
 #### Process
 Outside                         |  Inside
 :------------------------------:|:------------------------------:

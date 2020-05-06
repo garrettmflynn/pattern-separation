@@ -216,8 +216,9 @@ class Engram(_PyQtModule, UiInit, UiElements, Visuals, EngramCbar,
         else:
             self.control_method = 'keyboard'
 
-        if self.control_method is 'distance' or self.control_method is 'remote':
+        if self.control_method is 'IR_Distance':
             self.ser = serial.Serial('/dev/cu.usbmodem144101')
+            self.use_distance = True
         else:
             self.ser = None
 
@@ -239,23 +240,46 @@ class Engram(_PyQtModule, UiInit, UiElements, Visuals, EngramCbar,
                     command = 'NONE'
 
 
-            if method != 'keyboard':
-                THRESHOLD = 20 # cm
-                HEIGHT = 100
-                flt = float(distance)
-                self._userdistance = np.append(self._userdistance,flt) # convert string to float
+            if method == 'IR_Distance':
 
-                # Distance Selections
-                if flt < HEIGHT+THRESHOLD:
-                    self._carousel_choice[0] = 0
-                if flt >= HEIGHT + (THRESHOLD) and flt < HEIGHT+(2*THRESHOLD):
-                    self._carousel_choice[0] = 1
-                if flt >= HEIGHT + (2*THRESHOLD):
-                    self._carousel_choice[0] = 3
+                if self.use_distance:
+                    THRESHOLD = 20 # cm
+                    HEIGHT = 0
+                    flt = float(distance)
+                    self._userdistance = np.append(self._userdistance,flt) # convert string to float
 
+                    # Distance Selections
+                    if flt < HEIGHT+THRESHOLD:
+                        self._carousel_choice[0] = 0
+                    if flt >= HEIGHT + (THRESHOLD) and flt < HEIGHT+(2*THRESHOLD):
+                        self._carousel_choice[0] = 1
+                    if flt >= HEIGHT + (2*THRESHOLD):
+                        self._carousel_choice[0] = 3
+                        
+                    
                 # Remote Option
+
+                if command != 'NONE':
+                    print(command)
+
                 if command == 'POWER':
                     sys.exit()
+
+                if command == 'ST/REPT' and not self.use_distance:
+                    if self._carousel_choice[0] < (len(self._carousel_options_inds)-1):
+                        if self._carousel_choice[0] == 1:
+                            self._carousel_choice[0] = 3
+                        else:
+                            self._carousel_choice[0] += 1
+                    else:
+                        self._carousel_choice[0] = 0
+                    self._carousel_choice[1] = 0
+                
+                if command == 'EQ':
+                    if self.use_distance:
+                        self.use_distance = False
+                    else:
+                        self.use_distance = True
 
                 if command == 'FUNC/STOP':
                     if self._carousel_choice[1] < (len(self._carousel_options_inds[self._carousel_choice[0]])-1):
@@ -301,9 +325,17 @@ class Engram(_PyQtModule, UiInit, UiElements, Visuals, EngramCbar,
                         self.time_cache = self.displayed_time
                         self.rotation = 0
                         self.timescaling = 0
+                        self.paused = True
+
+                if self.paused == True:
+                    if command == 'FAST FORWARD':
+                        self.time_cache += .02
+                    elif command == 'FAST BACK':
+                        self.time_cache -= .02
+
 
                 # Remote Numbers
-                elif command == '0':
+                if command == '0':
                     self.view.wc.camera.azimuth = 0 
                     self.view.wc.camera.elevation = 90
 
@@ -353,6 +385,8 @@ class Engram(_PyQtModule, UiInit, UiElements, Visuals, EngramCbar,
         self.time_cache = None
         self.displayed_time = 0
 
+        self.paused = False
+
         def on_timer(*args, **kwargs): 
 
             # Change Source Radii and Connectivity Values
@@ -360,7 +394,7 @@ class Engram(_PyQtModule, UiInit, UiElements, Visuals, EngramCbar,
                 time_inc = (args[0].dt*self.timescaling)
                 self.displayed_time = self.loop_shift+(self.displayed_time + time_inc)%((np.shape(self.sources[0].data)[1]/self.metadata['fs'])-self.loop_shift)
             else:
-                self.displayed_time = self.time_cache
+                self.displayed_time = self.loop_shift+(self.time_cache)%((np.shape(self.sources[0].data)[1]/self.metadata['fs'])-self.loop_shift)
             
             timepoint = int(self.displayed_time*self.metadata['fs'])
             for source in self.sources:

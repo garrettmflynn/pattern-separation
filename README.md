@@ -49,6 +49,10 @@ $ python pattern-separation.py
 #### Wire Up Your Arduino
 ![tinkercad circuit](images/tinkercad.png)
 
+Front                         |  Top
+:------------------------------:|:------------------------------:
+![](images/circuit_front.jpg)  |  ![](images/circuit_top.jpg)
+
 #### Update the Control Method
 On line 80, replace 
 ```python
@@ -62,10 +66,10 @@ id.episode(shader='separation', control_method='Remote_Gesture)
 ## EXAMPLES
 
 ### Using **pattern-separation** for Interactive Art
-#### Process
+#### Enclosure
 Outside                         |  Inside
 :------------------------------:|:------------------------------:
-![](images/form_1_outside.jpg)  |  ![](images/form_1_inside.jpg)
+![](images/box_out.jpg)  |  ![](images/box_in.jpg)
 
 #### Documentation Video
 *Coming soon*

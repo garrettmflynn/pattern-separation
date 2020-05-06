@@ -11,14 +11,8 @@ class Duration(object):
 
         self.id = id
 
-        if bins is not None:
-            self.bins = [Bin(id, data=bins, timestamps=bin_timestamps, channel_labels=bin_channels, metadata=metadata)]
-        else:
-            self.bins = []
-        if conts is not None:
-            self.conts = [Cont(id, data=conts, channel_labels=cont_channels, metadata=metadata)]
-        else:
-            self.conts = []
+        self.bins = [Bin(id, data=bins, timestamps=bin_timestamps, channel_labels=bin_channels, metadata=metadata)]
+        self.conts = [Cont(id, data=conts, channel_labels=cont_channels, metadata=metadata)]
         
         self.events = events
         self.trial_labels = np.asarray(labels)

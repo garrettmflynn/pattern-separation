@@ -13,8 +13,12 @@ class Bin(object):
         for dim in np.shape(data): numel *= dim
 
         # Check if data is continuous or binary
-        if (len(data) > 0) and (not ((data==0) | (data==1)).all() and not timestamps):
-            print( "Invalid binary input. Nothing has been stored." )
+        try:
+            if (len(data) > 0) and (not ((data==0) | (data==1)).all() and not timestamps):
+                print( "Invalid binary input. Nothing has been stored." )
+        except:
+            if data:
+                return "Something is wrong with this input. Nothing has been stored."
         else:
             self.id = id
             self.timestamps = np.asarray(timestamps)

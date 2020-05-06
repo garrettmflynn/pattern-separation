@@ -87,8 +87,8 @@ def separation(id,control_method):
     # Convert binary array into visualizable continuous values
     print('Calculating spike durations')
     TRAIL = 10
-    TIMEPOINTS = 10000
-    spikes = binary.data.T[0:TIMEPOINTS]
+    TIMEPOINTS = 100000
+    spikes = binary.data.T[0:TIMEPOINTS].astype('float64')
     one_array = np.where(spikes == 1)
     if not not one_array:
         lb_1 = one_array[0]-TRAIL

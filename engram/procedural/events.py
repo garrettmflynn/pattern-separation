@@ -2,7 +2,6 @@
 def select(name,reader):
     selection = {
         "RAM": RAM,
-        "Neurogenesis":Neurogenesis
     }
     # Get the function from switcher dictionary
     func = selection.get(name, lambda: "Invalid event parser")

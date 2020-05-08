@@ -1,3 +1,6 @@
+# pattern-separation
+*A custom Visbrain environment for sorting neuronal spike trains*
+
 ![title](images/title.JPG)
 
 In the human brain, the hippocampus is theorized to transform non-simultaneous input patterns into less similar output patterns in a process known as "pattern separation", allowing us to distinguish similar memories from one another.

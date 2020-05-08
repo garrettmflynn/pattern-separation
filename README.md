@@ -5,7 +5,7 @@
 
 In the human brain, the hippocampus is theorized to transform non-simultaneous input patterns into less similar output patterns in a process known as "pattern separation", allowing us to distinguish similar memories from one another.
 
-**pattern-separation** is custom Visbrain environment for sorting neuronal spike trains. It sorts neuronal spike trains across all combinations of user-specified properties (e.g. left/right, anterior/posterior, CA1/CA3, etc). Additionally, Arduino ultrasonic and IR sensors were used to enable control of the system without access to the keyboard—-as well as allow user gestures to increase/decrease the amount of "pattern separation" within the custom Visbrain environment.
+**pattern-separation** is a custom Visbrain environment for sorting neuronal spike trains. It sorts neuronal spike trains across all combinations of user-specified properties (e.g. left/right, anterior/posterior, CA1/CA3, etc). Additionally, Arduino ultrasonic and IR sensors were used to enable control of the system without access to the keyboard—-as well as allow user gestures to increase/decrease the amount of "pattern separation" within the custom Visbrain environment.
 
 [![Github badge](https://img.shields.io/badge/github-source_code-blue.svg?logo=github&logoColor=white)](https://github.com/garrettmflynn/pattern-separation)
 [![License badge](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)

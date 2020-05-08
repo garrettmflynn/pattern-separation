@@ -1,4 +1,4 @@
-![title](images/title.jpg)
+![title](images/title.JPG)
 
 In the human brain, the hippocampus is theorized to transform non-simultaneous input patterns into less similar output patterns in a process known as "pattern separation", allowing us to distinguish similar memories from one another.
 
@@ -65,7 +65,7 @@ id.episode(shader='separation', control_method='Remote_Gesture)
 ## EXAMPLES
 
 ### Multiple Views of a Single Point in Time
-![collage](images/collage.jpg)
+![collage](images/collage.JPG)
 
 
 ### Using **pattern-separation** for Interactive Art
@@ -77,10 +77,9 @@ Outside                         |  Inside
 #### Interaction
 Default Configuration                        |  Interaction = Separation
 :------------------------------:|:------------------------------:
-![](images/interaction.jpg)  |  ![](images/interaction2.jpg)
+![](images/interaction.JPG)  |  ![](images/interaction2.JPG)
 #### Documentation Video
 [![Documentation video](images/youtube.png)](https://youtu.be/dBMfB8UTing)
-*Click on image to view our documentation video*
 
 ## DEPENDENCIES
 This project uses the following libraries:

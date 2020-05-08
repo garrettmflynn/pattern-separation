@@ -1,9 +1,8 @@
-# pattern-separation
- A custom Visbrain environment for sorting neuronal spike trains 
+![title](images/title.jpg)
 
 In the human brain, the hippocampus is theorized to transform non-simultaneous input patterns into less similar output patterns in a process known as "pattern separation", allowing us to distinguish similar memories from one another.
 
-**pattern-separation** sorts neuronal spike trains across all combinations of user-specified properties (e.g. left/right, anterior/posterior, CA1/CA3, etc). Additionally, Arduino ultrasonic and IR sensors were used to enable control of the system without access to the keyboard—-as well as allow user gestures to increase/decrease the amount of "pattern separation" within the custom Visbrain environment.
+**pattern-separation** is custom Visbrain environment for sorting neuronal spike trains. It sorts neuronal spike trains across all combinations of user-specified properties (e.g. left/right, anterior/posterior, CA1/CA3, etc). Additionally, Arduino ultrasonic and IR sensors were used to enable control of the system without access to the keyboard—-as well as allow user gestures to increase/decrease the amount of "pattern separation" within the custom Visbrain environment.
 
 [![Github badge](https://img.shields.io/badge/github-source_code-blue.svg?logo=github&logoColor=white)](https://github.com/garrettmflynn/pattern-separation)
 [![License badge](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
@@ -37,7 +36,7 @@ Enter the pattern-separation directory, then run pattern-separation.py.
 $ python pattern-separation.py
 ```
 ### Load **Custom Data**
-Example scripts for loading your own binary signals are included in the /custom folder.
+Example scripts for loading your own binary signals are included in the /data and /settings folders.
 
 Enter the pattern-separation directory, then run pattern-separation.py.
 ```bash
@@ -65,23 +64,31 @@ id.episode(shader='separation', control_method='Remote_Gesture)
 
 ## EXAMPLES
 
+### Multiple Views of a Single Point in Time
+![collage](images/collage.jpg)
+
+
 ### Using **pattern-separation** for Interactive Art
 #### Enclosure
 Outside                         |  Inside
 :------------------------------:|:------------------------------:
 ![](images/box_out.jpg)  |  ![](images/box_in.jpg)
 
+#### Interaction
+Default Configuration                        |  Interaction = Separation
+:------------------------------:|:------------------------------:
+![](images/interaction.jpg)  |  ![](images/interaction2.jpg)
 #### Documentation Video
-*Coming soon*
+[![Documentation video](images/youtube.png)](https://youtu.be/dBMfB8UTing)
+*Click on image to view our documentation video*
 
 ## DEPENDENCIES
 This project uses the following libraries:
-* ???
-* ???
-* ???
-* ???
-* ???
-* ???
+* [neo](https://github.com/NeuralEnsemble/python-neo) for loading real electrophysiology data
+* [pandas](https://github.com/pandas-dev/pandas) for organizing data
+* [pyserial](https://github.com/pyserial/pyserial) for communicating with Arduino Uno
+* [scipy](https://github.com/scipy/scipy) for processing data and creating synthetic data
+* [visbrain](https://github.com/EtienneCmb/visbrain) for creating the custom visualization environment
 
 ## SUPPORT
 

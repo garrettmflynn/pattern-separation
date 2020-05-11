@@ -62,7 +62,7 @@ id.episode(shader='separation', control_method='keyboard')
 ```
 with
 ```python
-id.episode(shader='separation', control_method='Remote_Gesture)
+id.episode(shader='separation', control_method='IR_Distance')
 ```
 
 ## EXAMPLES
